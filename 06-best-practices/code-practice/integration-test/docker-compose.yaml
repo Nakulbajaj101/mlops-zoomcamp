@@ -11,7 +11,7 @@ services:
       - AWS_DEFAULT_REGION=${AWS_DEFAULT_REGION}
       - KINESIS_ENDPOINT_URL=${KINESIS_ENDPOINT_URL}
     volumes:
-      - "/Users/bajajn/mlopszoomcamp/mlops-zoomcamp/06-best-practices/code-practice/integration-test/model:/app/model"
+      - "./model:/app/model"
 
 
   localstack:
