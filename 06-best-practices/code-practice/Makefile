@@ -6,16 +6,19 @@ quality_checks:
 	pipenv run isort .
 	pipenv run pytest tests/ 
 
-build: quality_checks
+build_image:
 	docker build -t ${LOCAL_IMAGE_NAME} .
 
-integration_tests: build
+integration_tests: build_image
 	bash ./integration-test/run.sh
 
 deploy_stage: 
 	bash ./deploy/run.sh stage
 
-publish: integration_tests
+local_build_and_test: quality_checks
+	bash ./integration-test/run.sh
+
+publish: int
 	echo Publishing the image to AWS
 	bash pushEcr.sh
 
