@@ -1,9 +1,9 @@
 #!/bin/bash
+cd "$(dirname "$0")"
 if [[ -z "${GITHUB_ACTIONS}" ]]
 
 then
   echo "Running tests locally"
-  cd "$(dirname "$0")"
   
   #Local setup profile
   export AWS_ACCESS_KEY_ID=$(aws configure get lamda_kinesis.aws_access_key_id)
