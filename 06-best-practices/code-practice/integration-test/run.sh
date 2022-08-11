@@ -42,6 +42,7 @@ aws --endpoint-url http://localhost:4566  kinesis create-stream --stream-name $S
 
 sleep 5
 
+echo "Running lambda integration tests"
 pipenv run python test_docker.py
 RESULT=$?
 
@@ -54,9 +55,10 @@ else
   exit ${RESULT}
 fi
 
-
+echo "Running kinesis integration tests"
 pipenv run python test_kinesis.py
 RESULT=$?
+
 if [ $RESULT -eq 0 ]; then
   echo kinesis integration test passed
 else
