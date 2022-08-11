@@ -34,8 +34,9 @@ else
     echo "no need to build image ${LOCAL_IMAGE_NAME}"
 fi
 
-
 docker-compose up -d
+
+sleep 5 
 
 aws --endpoint-url http://localhost:4566  kinesis create-stream --stream-name $STREAM_NAME --shard-count 1
 
