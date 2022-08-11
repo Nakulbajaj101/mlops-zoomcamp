@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ -z "${GITHUB_ACTION}" ]]
+if [[ -z "${GITHUB_ACTIONS}" ]]
 
 then
   echo "Running tests locally"
