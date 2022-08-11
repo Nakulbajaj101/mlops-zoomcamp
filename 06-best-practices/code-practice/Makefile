@@ -1,9 +1,9 @@
 LOCAL_TAG:=$(shell date +"%Y-%m-%d-%H-%M")
 export LOCAL_IMAGE_NAME:=stream-model-duration:${LOCAL_TAG}
 quality_checks:
-	find . -type f -name "*.py" | xargs pylint
-	black .
-	isort .
+	find . -type f -name "*.py" | xargs pipenv run pylint
+	pipenv run black .
+	pipenv run isort .
 	pipenv run pytest tests/ 
 
 build: quality_checks

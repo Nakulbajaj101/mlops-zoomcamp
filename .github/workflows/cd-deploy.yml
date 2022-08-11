@@ -27,4 +27,4 @@ jobs:
 
       - name: Run Quality tests
         working-directory: '06-best-practices/code-practice'
-        run: pipenv shell && make quality_checks 
+        run: make quality_checks 
