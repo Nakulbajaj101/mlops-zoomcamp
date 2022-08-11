@@ -50,6 +50,8 @@ if [ $RESULT -eq 0 ]; then
 else
   docker-compose logs
   echo model lambda integration tests failed
+  docker-compose down
+  exit ${RESULT}
 fi
 
 
@@ -60,5 +62,7 @@ if [ $RESULT -eq 0 ]; then
 else
   docker-compose logs
   echo kinesis integration tests failed
+  docker-compose down
+  exit ${RESULT}
 fi
 docker-compose down
