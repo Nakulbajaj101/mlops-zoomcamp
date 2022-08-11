@@ -1,6 +1,7 @@
 #!/bin/bash
-if [[ -z "${GITHUB_ACTION}"]]; then
+if [[ -z "${GITHUB_ACTION}" ]]
 
+then
   echo "Running tests locally"
   cd "$(dirname "$0")"
   
@@ -10,7 +11,6 @@ if [[ -z "${GITHUB_ACTION}"]]; then
   export AWS_DEFAULT_REGION=$(aws configure get lamda_kinesis.region)
 
 else
-  
   echo "Running tests in github runner"
 
   # Setup in github deploy script
