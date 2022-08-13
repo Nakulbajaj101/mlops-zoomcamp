@@ -9,7 +9,6 @@ terraform {
 }
 
 provider "aws" {
-    profile = "mlopszoomcamp_infra"
     region = var.aws_region
 }
 
