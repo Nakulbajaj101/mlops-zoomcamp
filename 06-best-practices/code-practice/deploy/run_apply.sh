@@ -19,12 +19,17 @@ else
 fi 
 
 # run terraform for ${ENV}
-terraform init 
+echo "Initialing terraform"
+terraform init -backend-config="key=mlops-zoomcamp-${ENV}.tfstate" --reconfigure
+
+echo "Running terraform apply"
 TF_VAR_run_id=$RUN_ID TF_VAR_test_run=$TEST_RUN terraform apply -auto-approve -var-file="vars/${ENV}.tfvars"
 
 # copy model artifacts
+echo "Copying model artifacts to the bucket"
 aws s3 sync s3://${MODEL_BUCKET_DEV} s3://${MODEL_BUCKET}
 
 # update the environment variables for lambda function
+echo "Updating the lambda function"
 variables="{STREAM_NAME=${STREAM_NAME}, MODEL_BUCKET=${MODEL_BUCKET}, RUN_ID=${RUN_ID}, TEST_RUN=${TEST_RUN}}"
 aws --region us-east-2 lambda update-function-configuration --function-name ride-prediction-service-${ENV} --environment "Variables=${variables}"
