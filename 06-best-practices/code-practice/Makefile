@@ -12,9 +12,11 @@ build_image:
 integration_tests: build_image
 	bash ./integration-test/run.sh
 
+# Plan terraform stage
 plan_stage:
 	bash ./deploy/run_plan.sh stage
 
+# Plan terraform prod
 plan_prod:
 	bash ./deploy/run_plan.sh prod
 
