@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - 'main'
-    paths:
-      - '06-best-practices/code-practice/**'
+    #paths:
+    #  - '06-best-practices/code-practice/**'
 env:
   AWS_DEFAULT_REGION: 'us-east-2'
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -99,8 +99,8 @@ jobs:
           IMAGE_TAG: "latest"
           TEST_RUN: "False"
         run: |
-          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG} .
-          docker push ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
+          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG} .
+          docker push ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG}
 
       - name: Build, tag and push image prod
         working-directory: '06-best-practices/code-practice'
@@ -110,8 +110,8 @@ jobs:
           IMAGE_TAG: "latest"
           TEST_RUN: "False"
         run: |
-          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-prod.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-prod.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG} .
-          docker push ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
+          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-prod.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-prod.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG} .
+          docker push ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG}
         
       - name: Update bucket artifacts stage
         env:
