@@ -3,7 +3,11 @@ resource "aws_s3_bucket" "bucket" {
     tags = {
         Environment = var.tags
     } 
-    acl = "private"
+}
+
+resource "aws_s3_bucket_acl" "bucket_acl_private" {
+  bucket = aws_s3_bucket.bucket.id
+  acl    = "private"
 }
 
 output "bucket_arn" {
