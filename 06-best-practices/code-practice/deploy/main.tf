@@ -9,7 +9,6 @@ terraform {
 }
 
 provider "aws" {
-    profile = "mlopszoomcamp_infra"
     region = var.aws_region
 }
 
@@ -64,8 +63,41 @@ module "ride_prediction_lambda" {
     input_kinesis_stream_arn = module.kinesis_source_stream.stream_arn
     iam_role_name_lambda = var.env == "prod" ? "lambda-kinesis": "lambda-kinesis-${var.env}"
     function_name = var.env == "prod" ? "ride-prediction-service": "ride-prediction-service-${var.env}"
-    stream_name = var.env == "prod" ? "${var.output_stream_name}" : "${var.output_stream_name}_${var.env}"
+    stream_name = module.kinesis_output_stream.stream_name
     image_uri = module.lambda_ecr_image.image_uri
-    model_bucket = var.env == "prod" ? var.ride_prediction_bucket_name : "${var.ride_prediction_bucket_name}-${var.env}"
+    model_bucket = module.model_bucket.bucket_name
     model_bucket_arn = module.model_bucket.bucket_arn
+    depends_on = [
+      module.kinesis_output_stream,
+      module.kinesis_source_stream,
+      module.model_bucket
+    ]
+}
+
+output "ride_prediction_lambda" {
+    value = module.ride_prediction_lambda.function_name
+}
+
+output "ride_prediction_bucket" {
+    value = module.model_bucket.bucket_name
+}
+
+output "kinesis_source_stream_name" {
+    value = module.kinesis_source_stream.stream_name
+}
+
+output "kinesis_output_stream_name" {
+    value = module.kinesis_output_stream.stream_name
+}
+
+output "image_uri" {
+    value = module.lambda_ecr_image.image_uri
+}
+
+output "ecr_repo" {
+    value = var.env == "prod" ? "${var.lambda_ride_prediction_repo}" : "${var.lambda_ride_prediction_repo}-${var.env}"
+}
+
+output "run_id" {
+    value = var.run_id
 }

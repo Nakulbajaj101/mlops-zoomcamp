@@ -11,3 +11,7 @@ resource "aws_kinesis_stream" "kinesis_events" {
 output "stream_arn" {
     value = aws_kinesis_stream.kinesis_events.arn
 }
+
+output "stream_name" {
+    value = aws_kinesis_stream.kinesis_events.name
+}
