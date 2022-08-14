@@ -9,6 +9,7 @@ env:
   AWS_DEFAULT_REGION: 'us-east-2'
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  RUN_ID: '20c7e3f3b3584b769bf6cacd4643d43d'
 
 jobs:
   deploy:
@@ -41,10 +42,18 @@ jobs:
 
       - name: TF apply-stage
         id: tf-apply-stage
-        working-directory: '06-best-practices/code-practice'
+        working-directory: '06-best-practices/code-practice/deploy'
         if: ${{ steps.tf-plan-stage.outcome }} == 'success'
+        env:
+          ENVIRONMENT: "stage"
+          TEST_RUN: "False"
         run: | 
-          make deploy_stage
+          echo "Initialing terraform"
+          terraform init -backend-config="key=mlops-zoomcamp-${{ env.ENVIRONMENT }}.tfstate" --reconfigure
+
+          echo "Running terraform apply" 
+          TF_VAR_run_id=${{ env.RUN_ID }} TF_VAR_test_run=${{ env.TEST_RUN }} terraform apply -auto-approve -var-file="vars/${{ env.ENVIRONMENT }}.tfvars"
+
           echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
           echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
@@ -63,8 +72,16 @@ jobs:
         id: tf-apply-prod
         working-directory: '06-best-practices/code-practice'
         if: ${{ steps.tf-plan-prod.outcome }} == 'success'
+        env:
+          ENVIRONMENT: "prod"
+          TEST_RUN: "False"
         run: | 
-          make deploy_prod
+          echo "Initialing terraform"
+          terraform init -backend-config="key=mlops-zoomcamp-${{ env.ENVIRONMENT }}.tfstate" --reconfigure
+
+          echo "Running terraform apply" 
+          TF_VAR_run_id=${{ env.RUN_ID }} TF_VAR_test_run=${{ env.TEST_RUN }} terraform apply -auto-approve -var-file="vars/${{ env.ENVIRONMENT }}.tfvars"
+
           echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
           echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
@@ -97,14 +114,14 @@ jobs:
         
       - name: Update bucket artifacts stage
         env:
-          MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul"
+          MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
           MODEL_BUCKET: ${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }}
         run: |
           aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${MODEL_BUCKET}
 
       - name: Update bucket artifacts prod
         env:
-          MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul"
+          MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
           MODEL_BUCKET: ${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }}
         run: |
           aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${MODEL_BUCKET}

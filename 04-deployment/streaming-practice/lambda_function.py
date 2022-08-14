@@ -13,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 STREAM_NAME = os.getenv("STREAM_NAME")
 RUN_ID = os.getenv("RUN_ID")
 TEST_RUN = os.getenv('TEST_RUN', 'False') == 'True'
-logged_model = f's3://mlops-zoomcamp-nakul/week-4-experiments/1/{RUN_ID}/artifacts/model'
+logged_model = f's3://mlops-zoomcamp-nakul-dev/week-4-experiments/1/{RUN_ID}/artifacts/model'
 stream_client = boto3.client('kinesis')
 
 def send_to_stream(stream_name, data, partition_key=1):

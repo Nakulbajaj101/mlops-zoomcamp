@@ -21,7 +21,7 @@ services:
       EVIDENTLY_SERVICE_ADDRESS: "http://evidently_service.:8085"
       MONGO_DATABASE: "ride_prediction"
       MONGO_ADDRESS: "mongodb://mongo.:27017/"
-      BUCKET_ID: "mlops-zoomcamp-nakul"
+      BUCKET_ID: "mlops-zoomcamp-nakul-dev"
       RUN_ID: "20c7e3f3b3584b769bf6cacd4643d43d"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"

@@ -20,13 +20,21 @@ plan_stage:
 plan_prod:
 	bash ./deploy/run_plan.sh prod
 
-# Apply tf stage
-deploy_stage: 
-	bash ./deploy/run_apply.sh stage
+# Apply terraform stage local machine
+apply_stage_local:
+	bash ./deploy/run_apply_local.sh stage
 
-# Apply tf prod
-deploy_prod: 
-	bash ./deploy/run_apply.sh prod
+# Apply terraform prod local machine
+apply_prod_local:
+	bash ./deploy/run_apply_local.sh prod
+
+# Destroy terraform stage local machine
+destroy_stage_local:
+	bash ./deploy/run_destroy_local.sh stage
+
+# Destroy terraform prod local machine
+destroy_prod_local:
+	bash ./deploy/run_destroy_local.sh prod
 
 local_build_and_test: quality_checks
 	bash ./integration-test/run.sh

@@ -9,7 +9,7 @@ from prefect import flow, get_run_logger, task
 from prefect.context import get_run_context
 from prefect.task_runners import SequentialTaskRunner
 
-AWS_S3_BUCKET = "mlops-zoomcamp-nakul"
+AWS_S3_BUCKET = "mlops-zoomcamp-nakul-dev"
 OBJECT_PATH = "week4-scoring"
 categorical = ['PULocationID', 'DOLocationID']
 

@@ -10,7 +10,7 @@ from botocore.exceptions import ClientError
 #Initialing the logger
 logging.basicConfig(level=logging.INFO)
 
-AWS_S3_BUCKET = "mlops-zoomcamp-nakul"
+AWS_S3_BUCKET = "mlops-zoomcamp-nakul-dev"
 OBJECT_PATH = "week4-homework/"
 categorical = ['PUlocationID', 'DOlocationID']
 

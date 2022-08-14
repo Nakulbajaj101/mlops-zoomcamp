@@ -9,7 +9,7 @@ RUN_ID = os.getenv('RUN_ID')
 # MLFLOW_TRACKING_URI = 'http://127.0.0.1:5000'
 # client = mlflow.set_tracking_uri(MLFLOW_TRACKING_URI)
 
-logged_model = f's3://mlops-zoomcamp-nakul/week-4-experiments/1/{RUN_ID}/artifacts/model'
+logged_model = f's3://mlops-zoomcamp-nakul-dev/week-4-experiments/1/{RUN_ID}/artifacts/model'
 # logged_model = f'runs:/{RUN_ID}/model'
 model = mlflow.pyfunc.load_model(logged_model)
 
