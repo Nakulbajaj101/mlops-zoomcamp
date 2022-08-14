@@ -58,9 +58,10 @@ jobs:
           echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
           echo "::set-output name=kinesis_output_stream::$(terraform output kinesis_output_stream_name)"
-          echo "Image  name deployed is $(terraform output image_uri)"
-          echo "::set-output-name name=ecr_repo::$(terraform output ecr_repo)"
-          echo "::set-output-name name=run_id::$(terraform output run_id)"
+          echo "::set-output name=ecr_repo::$(terraform output ecr_repo)"
+          echo "::set-output name=run_id::$(terraform output run_id)"
+
+          echo "Image name deployed is $(terraform output image_uri)"
 
       - name: TF plan-prod
         id: tf-plan-prod
@@ -87,19 +88,19 @@ jobs:
           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
           echo "::set-output name=kinesis_output_stream::$(terraform output kinesis_output_stream_name)"
           echo "Image  name deployed is $(terraform output image_uri)"
-          echo "::set-output-name name=ecr_repo::$(terraform output ecr_repo)"
-          echo "::set-output-name name=run_id::$(terraform output run_id)"
+          echo "::set-output name=ecr_repo::$(terraform output ecr_repo)"
+          echo "::set-output name=run_id::$(terraform output run_id)"
       
       - name: Build, tag and push image stage
         working-directory: '06-best-practices/code-practice'
         env:
-          STAGE_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          STAGE_REPOSITORY: ${{ steps.tf-apply-stage.outputs.ecr_repo }}
-          STAGE_IMAGE_TAG: "latest"
-          STAGE_TEST_RUN: "False"
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: ${{ steps.tf-apply-stage.outputs.ecr_repo }}
+          IMAGE_TAG: "latest"
+          TEST_RUN: "False"
         run: |
-          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.STAGE_TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${STAGE_REGISTRY}/${STAGE_REPOSITORY}:${STAGE_IMAGE_TAG} .
-          docker push ${STAGE_REGISTRY}/${STAGE_REPOSITORY}:${STAGE_IMAGE_TAG}
+          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG} .
+          docker push ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
 
       - name: Build, tag and push image prod
         working-directory: '06-best-practices/code-practice'
@@ -117,11 +118,11 @@ jobs:
           MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
           MODEL_BUCKET: ${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }}
         run: |
-          aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${MODEL_BUCKET}
+          aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${{ env.MODEL_BUCKET }}
 
       - name: Update bucket artifacts prod
         env:
           MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
           MODEL_BUCKET: ${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }}
         run: |
-          aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${MODEL_BUCKET}
+          aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${{ env.MODEL_BUCKET }}
