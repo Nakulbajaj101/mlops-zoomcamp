@@ -19,7 +19,7 @@ def get_model_location(run_id: str = ""):
     if model_path:
         return model_path
     else:
-        bucket_name = os.getenv("MODEL_BUCKET", "mlops-zoomcamp-nakul")
+        bucket_name = os.getenv("MODEL_BUCKET", "mlops-zoomcamp-nakul-dev")
         experiment_id = os.getenv("MODEL_EXPERIMENT", "1")
         model_path = (
             f"""s3://{bucket_name}/week-4-experiments/{experiment_id}/{run_id}/artifacts/model"""
