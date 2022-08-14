@@ -29,6 +29,10 @@ jobs:
           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
+      
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
 
       - name: TF plan-stage
         id: tf-plan-stage
@@ -68,10 +72,6 @@ jobs:
           echo "Image  name deployed is $(terraform output image_uri)"
           echo "::set-output-name name=ecr_repo::$(terraform output ecr_repo)"
           echo "::set-output-name name=run_id::$(terraform output run_id)"
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
       
       - name: Build, tag and push image stage
         working-directory: '06-best-practices/code-practice'
