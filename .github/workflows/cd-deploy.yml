@@ -40,7 +40,7 @@ jobs:
         working-directory: '06-best-practices/code-practice'
         if: ${{ steps.tf-plan-stage.outcome }} == 'success'
         run: | 
-          make apply_stage
+          make deploy_stage
           echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
           echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
@@ -60,7 +60,7 @@ jobs:
         working-directory: '06-best-practices/code-practice'
         if: ${{ steps.tf-plan-prod.outcome }} == 'success'
         run: | 
-          make apply_prod
+          make deploy_prod
           echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
           echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
