@@ -11,7 +11,7 @@ ENV TEST_RUN=$TEST_RUN_ARG
 ENV MODEL_BUCKET=$MODEL_BUCKET_ARG
 
 RUN pip install -U pip
-RUN pip install -U pipenv
+RUN pip install pipenv==2022.8.5
 
 COPY ["Pipfile", "Pipfile.lock", "./"]
 
