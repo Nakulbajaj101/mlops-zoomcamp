@@ -5,6 +5,7 @@ RUN_ID = "Test123"
 
 model_service = ModelService(run_id=RUN_ID)
 
+
 def test_features():
     """Function to test feature transformation"""
 
