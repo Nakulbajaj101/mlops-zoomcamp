@@ -6,6 +6,7 @@ quality_checks:
 	pipenv run isort .
 	pipenv run pytest tests/ 
 
+# Building local image
 build_image:
 	docker build -t ${LOCAL_IMAGE_NAME} .
 
