@@ -9,6 +9,7 @@ quality_checks:
 build_image:
 	docker build -t ${LOCAL_IMAGE_NAME} .
 
+# Run tests locally or in pipeline
 integration_tests: build_image
 	bash ./integration-test/run.sh
 

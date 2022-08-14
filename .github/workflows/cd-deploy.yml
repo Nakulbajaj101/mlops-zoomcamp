@@ -98,8 +98,8 @@ jobs:
           STAGE_IMAGE_TAG: "latest"
           STAGE_TEST_RUN: "False"
         run: |
-          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.STAGE_TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${{ env.STAGE_REGISTRY }}/${{ env.STAGE_REPOSITORY }}:${{ env.STAGE_IMAGE_TAG }} .
-          docker push ${{ env.STAGE_REGISTRY }}/${{ env.STAGE_REPOSITORY }}:${{ env.STAGE_IMAGE_TAG }}
+          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.STAGE_TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${STAGE_REGISTRY}/${STAGE_REPOSITORY}:${STAGE_IMAGE_TAG} .
+          docker push ${STAGE_REGISTRY}/${STAGE_REPOSITORY}:${STAGE_IMAGE_TAG}
 
       - name: Build, tag and push image prod
         working-directory: '06-best-practices/code-practice'
@@ -109,8 +109,8 @@ jobs:
           IMAGE_TAG: "latest"
           TEST_RUN: "False"
         run: |
-          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-prod.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-prod.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }} -t ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }} .
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY }}:${{ env.IMAGE_TAG }}
+          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-prod.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-prod.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG} .
+          docker push ${REGISTRY}/${REPOSITORY}:${IMAGE_TAG}
         
       - name: Update bucket artifacts stage
         env:
