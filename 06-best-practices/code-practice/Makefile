@@ -18,9 +18,11 @@ plan_stage:
 plan_prod:
 	bash ./deploy/run_plan.sh prod
 
+# Apply tf stage
 deploy_stage: 
 	bash ./deploy/run_apply.sh stage
 
+# Apply tf prod
 deploy_prod: 
 	bash ./deploy/run_apply.sh prod
 
