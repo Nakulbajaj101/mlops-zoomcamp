@@ -3,8 +3,8 @@ on:
   push:
     branches:
       - 'main'
-    #paths:
-    #  - '06-best-practices/code-practice/**'
+    paths:
+      - '06-best-practices/code-practice/**'
 env:
   AWS_DEFAULT_REGION: 'us-east-2'
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
