@@ -30,13 +30,7 @@ local_build_and_test: quality_checks
 local_publish: quality_checks integration_tests
 	echo Publishing the image to AWS
 	bash pushEcr.sh
-
-publish_stage:
-	bash pushEcr.sh stage
-
-publish_prod:
-	bash pushEcr.sh prod
-
+	
 setup:
 	pipenv install --dev 
 	pre-commit install

@@ -51,10 +51,10 @@ jobs:
           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_DEFAULT_REGION }}
         
-      - name: plan-stage
+      - name: TF plan-stage
         working-directory: '06-best-practices/code-practice'
         run: make plan_stage
 
-      - name: plan-prod
+      - name: TF plan-prod
         working-directory: '06-best-practices/code-practice'
         run: make plan_prod

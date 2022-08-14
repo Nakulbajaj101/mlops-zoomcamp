@@ -37,3 +37,6 @@ resource "aws_lambda_event_source_mapping" "kinesis_stream_mapping" {
     aws_iam_role_policy_attachment.kinesis_processing
   ]
 }
+output "function_name" {
+  value = aws_lambda_function.lambda_handler_image.function_name
+}
