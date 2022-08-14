@@ -70,7 +70,7 @@ jobs:
 
       - name: TF apply-prod
         id: tf-apply-prod
-        working-directory: '06-best-practices/code-practice'
+        working-directory: '06-best-practices/code-practice/deploy'
         if: ${{ steps.tf-plan-prod.outcome }} == 'success'
         env:
           ENVIRONMENT: "prod"
