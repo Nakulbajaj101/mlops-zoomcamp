@@ -79,7 +79,7 @@ output "ride_prediction_lambda" {
 }
 
 output "ride_prediction_bucket" {
-    value = module.model_bucket.bucket
+    value = module.model_bucket.bucket_name
 }
 
 output "kinesis_source_stream_name" {
