@@ -23,7 +23,7 @@ EOF
 
 
 resource "aws_iam_policy" "allow_kinesis_processing" {
-  name        = "allow_kinesis_processing"
+  name        = "allow_kinesis_processing_${var.function_name}"
   path        = "/"
   description = "IAM policy for logging from a lambda"
 
