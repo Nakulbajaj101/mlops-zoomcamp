@@ -18,6 +18,7 @@ pylint = "==2.14.5"
 black = "==22.6.0"
 isort = "*"
 pre-commit = "*"
+platformdirs = "*"
 
 [requires]
 python_version = "3.9"
