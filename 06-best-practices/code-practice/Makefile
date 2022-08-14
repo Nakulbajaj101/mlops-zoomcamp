@@ -36,13 +36,16 @@ destroy_stage_local:
 destroy_prod_local:
 	bash ./deploy/run_destroy_local.sh prod
 
+# Local image building and running integration tests
 local_build_and_test: quality_checks
 	bash ./integration-test/run.sh
 
+# Test buiilding image locally and pushing to aws
 local_publish: quality_checks integration_tests
 	echo Publishing the image to AWS
 	bash pushEcr.sh
-	
+
+# For local setup
 setup:
 	pipenv install --dev 
 	pre-commit install
