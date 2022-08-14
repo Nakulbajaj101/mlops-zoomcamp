@@ -23,7 +23,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: '06-best-practices/code-practice'
-        run: pip install pipenv && pipenv install --dev
+        run: pip install pipenv==2022.8.5 && pipenv install --dev
 
       - name: Run Quality tests
         working-directory: '06-best-practices/code-practice'
