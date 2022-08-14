@@ -1,5 +1,7 @@
 ## Code snippets
 
+[![CI_TESTS](https://github.com/Nakulbajaj101/mlops-zoomcamp/actions/workflows/ci-tests.yml/badge.svg)](https://github.com/Nakulbajaj101/mlops-zoomcamp/actions/workflows/ci-tests.yml)
+
 [![CD_DEPLOY](https://github.com/Nakulbajaj101/mlops-zoomcamp/actions/workflows/cd-deploy.yml/badge.svg)](https://github.com/Nakulbajaj101/mlops-zoomcamp/actions/workflows/cd-deploy.yml)
 
 ### Building and running Docker images
