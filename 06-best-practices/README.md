@@ -153,3 +153,4 @@ https://www.youtube.com/watch?v=jCNxqXCKh2s&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhE
 Did you take notes? Add them here:
 
 * Send a PR, add your notes above this line
+* Need to add notes
