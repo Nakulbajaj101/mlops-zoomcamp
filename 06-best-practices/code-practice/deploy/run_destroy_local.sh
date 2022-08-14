@@ -23,5 +23,8 @@ fi
 
 aws s3 rm s3://$MODEL_BUCKET --recursive
 
+echo "Initialising terraform"
+terraform init -backend-config="key=mlops-zoomcamp-${ENV}.tfstate" --reconfigure
+
 echo "Running terraform destroy"
 TF_VAR_run_id=$RUN_ID TF_VAR_test_run=$TEST_RUN terraform destroy -auto-approve -var-file="vars/${ENV}.tfvars"
