@@ -13,13 +13,13 @@ Remember that to pass the project, you must evaluate 3 peers. If you don't do th
 Project:
 
 * Form: https://forms.gle/7UmQkK4BBxqdgMDp9
-* Deadline: 15 August, 23:00 CEST
+* Deadline: 22 August, 23:00 CEST
 
 Peer reviewing:
 
-* Peer review assignments: TBA
+* Peer review assignments: [link](https://docs.google.com/spreadsheets/d/e/2PACX-1vQYTps829bmaN-aaJPiBUc3UwtN3e_llI44DKv-rQDsmVRMS1No7XWQqOyNI4ZbFbIvN351Q-G6edCP/pubhtml) (tab "project 1")
 * Form: https://forms.gle/KaBMoYhmfeEFmiWb7
-* Deadline: 22 August, 23:00 CEST
+* Deadline: 29 August, 23:00 CEST
 
 Project feedback: TBA
 
@@ -28,13 +28,13 @@ Project feedback: TBA
 
 Project:
 
-* Form: TBA
+* Form: https://forms.gle/aj8LHkY7PrWG9XzW6
 * Deadline: 5 September, 23:00 CEST
 
 Peer reviewing:
 
 * Peer review assignments: TBA
-* Form: TBA
+* Form: https://forms.gle/BeQ2HCohrM3puKf26
 * Deadline: 12 September, 23:00 CEST
 
 Project feedback: TBA
@@ -102,7 +102,7 @@ If you're not certain about some tools, ask in Slack.
 * Reproducibility
     * 0 points: No instructions how to run code at all
     * 2 points: Some instructions are there, but they are not complete
-    * 4 points: Instructions are clear, it's easy to run the code, and the code works
+    * 4 points: Instructions are clear, it's easy to run the code, and the code works. The version for all the dependencies are specified.
 * Best practices
     * [ ] There are unit tests (1 point)
     * [ ] There is an integration test (1 point)
