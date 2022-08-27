@@ -7,7 +7,7 @@ import requests
 
 URL = "http://localhost:8080/2015-03-31/functions/function/invocations"
 SHARD_ID = "shardId-000000000000"
-STREAM_NAME = "prediction-service"
+STREAM_NAME = "ride_predictions"
 
 event = {
     "Records": [
