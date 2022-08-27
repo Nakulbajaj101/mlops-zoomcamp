@@ -20,7 +20,7 @@ else
 
 fi
 
-export STREAM_NAME="prediction-service"
+export STREAM_NAME="ride_predictions"
 export RUN_ID="20c7e3f3b3584b769bf6cacd4643d43d"
 export TEST_RUN=False
 export KINESIS_ENDPOINT_URL='http://localstack:4566/'
