@@ -13,24 +13,19 @@ docker build -t stream-model-duration:v2 .
 ```bash
 docker run -it --rm \
     -p 8080:8080 \
-    -e PREDICTIONS_STREAM_NAME="ride_predictions" \
-    -e RUN_ID="e1efc53e9bd149078b0c12aeaa6365df" \
+    -e STREAM_NAME="prediction-service" \
     -e TEST_RUN="True" \
-    -e AWS_DEFAULT_REGION="eu-west-1" \
     stream-model-duration:v2
 ```
 
 Mounting the model folder:
 
-```
+```bash
 docker run -it --rm \
     -p 8080:8080 \
-    -e PREDICTIONS_STREAM_NAME="ride_predictions" \
-    -e RUN_ID="Test123" \
-    -e MODEL_LOCATION="/app/model" \
+    -e STREAM_NAME="ride_predictions" \
     -e TEST_RUN="True" \
-    -e AWS_DEFAULT_REGION="eu-west-1" \
-    -v $(pwd)/model:/app/model \
+    -v integration-test/model:/app/model \
     stream-model-duration:v2
 ```
 
@@ -60,7 +55,7 @@ aws  --endpoint-url=http://localhost:4566 \
 ### Unable to locate credentials
 
 If you get `'Unable to locate credentials'` error, add these
-env variables to the `docker-compose.yaml` file:
+env variables to the `docker-compose.yaml` file in integration-test folder:
 
 ```yaml
 - AWS_ACCESS_KEY_ID=abc
@@ -72,17 +67,16 @@ env variables to the `docker-compose.yaml` file:
 Without make:
 
 ```
-isort .
-black .
-pylint --recursive=y .
-pytest tests/
+find . -type f -name "*.py" | xargs pipenv run pylint
+pipenv run black .
+pipenv run isort .
+pipenv run pytest tests/ 
 ```
 
 With make:
 
 ```
 make quality_checks
-make test
 ```
 
 
@@ -113,7 +107,7 @@ w/ Terraform
          $ aws configure
          AWS Access Key ID [None]: xxx
          AWS Secret Access Key [None]: xxx
-         Default region name [None]: eu-west-1
+         Default region name [None]: xxx 
          Default output format [None]:
       ```
 
@@ -131,34 +125,22 @@ w/ Terraform
 
 1. To create infra (manually, in order to test on staging env)
     ```shell
-    # Initialize state file (.tfstate)
-    terraform init
+    # Create infra from local and update lambda for stage
+    make apply_stage_local
 
-    # Check changes to new infra plan
-    terraform plan -var-file=vars/stg.tfvars
+    # To create for prod
+    make apply_prod_local
     ```
 
-    ```shell
-    # Create new infra
-    terraform apply -var-file=vars/stg.tfvars
-    ```
+2. And then check on CloudWatch logs. Or try `get-records` on the `output_kinesis_stream` (refer to `integration_test`)
 
-2. To prepare aws env (copy model artifacts, set env-vars for lambda etc.):
-    ```
-    . ./scripts/deploy_manual.sh
-    ```
-
-3. To test the pipeline end-to-end with our new cloud infra:
-    ```
-    . ./scripts/test_cloud_e2e.sh
-    ``` 
-
-4. And then check on CloudWatch logs. Or try `get-records` on the `output_kinesis_stream` (refer to `integration_test`)
-
-5. Destroy infra after use:
+3. Destroy infra after use:
     ```shell
     # Delete infra after your work, to avoid costs on any running services
-    terraform destroy
+    make destroy_stage_local
+
+    # For prod 
+    make destroy_prod_local
     ```
 
 <br>
