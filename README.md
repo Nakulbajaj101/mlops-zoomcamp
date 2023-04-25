@@ -1,30 +1,55 @@
 # MLOps Zoomcamp
 
 <p align="center">
-  <a href="https://www.youtube.com/watch?v=3T5kUA3eWWc&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK" target="_blank">
-    <img src="images/banner.png">
+  <a href="https://airtable.com/shrCb8y6eTbPKwSTL" target="_blank">
+    <img src="images/IMG_20230323_134059_927.png">
   </a>
 </p>
 
+<p align="center">
+  <a href="https://airtable.com/shrCb8y6eTbPKwSTL"><img src="https://user-images.githubusercontent.com/875246/185755203-17945fd1-6b64-46f2-8377-1011dcb1a444.png" height="50" /></a>
+</p>
 
 Our MLOps Zoomcamp course
 
-- Sign up here: https://airtable.com/shrCb8y6eTbPKwSTL (it's not automated, you will not receive an email immediately after filling in the form)
+- Sign up here: https://airtable.com/shrCb8y6eTbPKwSTL
 - Register in [DataTalks.Club's Slack](https://datatalks.club/slack.html)
 - Join the [`#course-mlops-zoomcamp`](https://app.slack.com/client/T01ATQK62F8/C02R98X7DS9) channel
 - [Tweet about the course!](https://ctt.ac/fH67W)
-- Subscribe to the [public Google calendar](https://calendar.google.com/calendar/?cid=M3Jzbmg0ZDA2aHVsY2M1ZjcyNDJtODNyMTRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) (subscription works from desktop only)
 - Start watching course videos! [Course playlist](https://www.youtube.com/playlist?list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK)
 - [Technical FAQ](https://docs.google.com/document/d/12TlBfhIiKtyBv8RnsoJR6F72bkPDGEvPOItJIxaEzE0/edit) 
 - For announcements, join our [Telegram channel](https://t.me/dtc_courses)
+
+
+## Taking the course
+
+### 2023 Cohort
+
+* **Start**: 15 May 2023 (Monday) at 17:00 CET
+* **Registration link**: https://airtable.com/shrCb8y6eTbPKwSTL
+* Subscribe to our [public Google Calendar](https://calendar.google.com/calendar/?cid=M3Jzbmg0ZDA2aHVsY2M1ZjcyNDJtODNyMTRAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ) (it works from Desktop only)
+
+### Self-paced mode
+
+All the materials of the course are freely available, so that you
+can take the course at your own pace
+
+* Follow the suggested syllabus (see below) week by week
+* You don't need to fill in the registration form. Just start watching the videos and join Slack
+* Check [FAQ](https://docs.google.com/document/d/12TlBfhIiKtyBv8RnsoJR6F72bkPDGEvPOItJIxaEzE0/edit) if you have problems
+* If you can't find a solution to your problem in FAQ, ask for help in Slack
+
+### 2022 Cohort
+
 - [Leaderboard](https://docs.google.com/spreadsheets/d/e/2PACX-1vRhinTR4Gpxcud-xX0cPBVqboO8RE5gFY7W2dfgfhzECuPFOaCoo9TVWUTxxrSmzvbZY0D-N1vai8RN/pubhtml)
+
 
 
 ## Overview
 
 ### Objective
 
-Teach practical aspects of productionizing ML services — from collecting requirements to model deployment and monitoring.
+Teach practical aspects of productionizing ML services — from training and experimenting to model deployment and monitoring.
 
 ### Target audience
 
@@ -38,9 +63,6 @@ Data scientists and ML engineers. Also software engineers and data engineers int
 * Prior exposure to machine learning (at work or from other courses, e.g. from [ML Zoomcamp](https://github.com/alexeygrigorev/mlbookcamp-code/tree/master/course-zoomcamp))
 * Prior programming experience (at least 1+ year)
 
-### Timeline
-
-Course start: 16 of May
 
 
 ### Asking for help in Slack
@@ -130,25 +152,11 @@ To make discussions in Slack more organized:
 [More details](07-project/)
 
 
-### Module 7: Processes
-
-* CRISP-DM, CRISP-ML
-* ML Canvas
-* Data Landscape canvas
-* MLOps Stack Canvas
-* Documentation practices in ML projects (Model Cards Toolkit)
-
-(In October)
-
-
-
 
 ## Instructors
 
-- Larysa Visengeriyeva
 - Cristian Martinez
-- Kevin Kho
-- Theofilos Papapanagiotou 
+- Jeff Hale 
 - Alexey Grigorev
 - Emeli Dral
 - Sejal Vaidya
@@ -212,20 +220,11 @@ Thanks to the course sponsors for making it possible to create this course
 </p>
 
 
-
-Thanks to our friends for spreading the word about the course
-
 <p align="center">
-  <a href="https://dphi.tech/">
-    <img height="75" src="https://datatalks.club/images/partners/dphi.png">
-  </a>
-  <a href="https://www.confetti.ai/">
-    <img height="75" src="https://datatalks.club/images/partners/confetti.png">
+  <a href="https://wandb.ai/">
+    <img height="100" src="https://datatalks.club/images/partners/wandb-abb.svg">
   </a>
 </p>
 
-<p align="center">
-  <a href="https://mlopsworld.com/">
-    <img height="75" src="images/mlops-world.png">
-  </a>
-</p>
+
+
