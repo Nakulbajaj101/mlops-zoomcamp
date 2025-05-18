@@ -34,6 +34,7 @@
   <img src="images/thumbnail-4-04.jpg">
 </a>
 
+Note: Since some of the steps in this video requires the use of AWS services which incur some cost on the user, it is optional to code along to this video. However, as material in Module 6 is based on the content of this video, we still highly recommended that you watch it.
 
 [See code here](streaming/)
 
@@ -48,46 +49,18 @@
 [See code here](batch/)
 
 
-## 4.6 MLOps Zoomcamp 4.6 - Batch: Scheduling batch scoring jobs with Prefect
+## 4.6 MLOps Zoomcamp 4.6 - Batch scoring with Mage
 
-**Note:** There are several changes to deployment in Prefect 2.3.1 since 2.0b8:
-- `DeploymentSpec` in 2.0b8 now becomes `Deployment`. 
-- `work_queue_name` is used instead of `tags` to submit the deployment to the a specific work queue. 
-- You don't need to create a work queue before using the work queue. A work queue will be created if it doesn't exist. 
-- `flow_location` is replaced with `flow`
-- `flow_runner` and `flow_storage` are no longer supported
+No video - you already know how to do it:
 
-```python
-from prefect.deployments import Deployment
-from prefect.orion.schemas.schedules import CronSchedule
-from score import ride_duration_prediction
-
-deployment = Deployment.build_from_flow(
-    flow=ride_duration_prediction,
-    name="ride_duration_prediction",
-    parameters={
-        "taxi_type": "green",
-        "run_id": "e1efc53e9bd149078b0c12aeaa6365df",
-    },
-    schedule=CronSchedule(cron="0 3 2 * *"),
-    work_queue_name="ml",
-)
-
-deployment.apply()
-```
-
-<a href="https://www.youtube.com/watch?v=ekT_JW213Tc&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-4-06.jpg">
-</a>
-
-## 4.7 Choosing the right way of deployment
-
-COMING SOON
+* Connect to MLFlow
+* Create a transformation block
+* Get the model from the registry, apply it
 
 
-## 4.8 Homework
+## Homework
 
-More information here: [homework.md](homework.md)
+More information [here](../cohorts/2024/04-deployment/homework.md).
 
 
 ## Notes
@@ -98,4 +71,7 @@ Did you take notes? Add them here:
 * [Notes on Model Deployment using Google Cloud Platform, by M. Ayoub C.](https://gist.github.com/Qfl3x/de2a9b98a370749a4b17a4c94ef46185)
 * [Week4: Notes on Model Deployment by Bhagabat](https://github.com/BPrasad123/MLOps_Zoomcamp/tree/main/Week4)
 * [Week 4: Deployment notes by Ayoub.B](https://github.com/ayoub-berdeddouch/mlops-journey/blob/main/deployment-04.md)
+* [Week 4: Deployment notes by Waleed](https://github.com/waleedayoub/mlops-zoomcamp/blob/main/cohorts/2023/04-deployment/module4notes.waleed.md)
+* [Week4: Deployment: Offline (Batch), Online (Web service /w MLflow, Streaming) by Hongfan (Amber)](https://github.com/Muhongfan/MLops/blob/main/04-deployment/README.md)
+* [Week 4: Deployment Notes - Marcus](https://github.com/mleiwe/mlops-zoomcamp/blob/NotesBranch/cohorts/2024/04-deployment/Ch4_Notes_ML.md)
 * Send a PR, add your notes above this line
