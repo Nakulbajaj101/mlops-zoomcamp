@@ -1,128 +1,128 @@
-name: CD_DEPLOY
-on:
-  push:
-    branches:
-      - 'main'
-    paths:
-      - '06-best-practices/code-practice/**'
-env:
-  AWS_DEFAULT_REGION: 'us-east-2'
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  RUN_ID: '20c7e3f3b3584b769bf6cacd4643d43d'
+# name: CD_DEPLOY
+# on:
+#   push:
+#     branches:
+#       - 'main'
+#     paths:
+#       - '06-best-practices/code-practice/**'
+# env:
+#   AWS_DEFAULT_REGION: 'us-east-2'
+#   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#   RUN_ID: '20c7e3f3b3584b769bf6cacd4643d43d'
 
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v2
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout Repo
+#         uses: actions/checkout@v2
       
-      - name: Setup terraform
-        uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.0.0
-          terraform_wrapper: false
+#       - name: Setup terraform
+#         uses: hashicorp/setup-terraform@v2
+#         with:
+#           terraform_version: 1.0.0
+#           terraform_wrapper: false
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_DEFAULT_REGION }}
+#       - name: Configure AWS Credentials
+#         uses: aws-actions/configure-aws-credentials@v1
+#         with:
+#           aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+#           aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+#           aws-region: ${{ env.AWS_DEFAULT_REGION }}
       
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+#       - name: Login to Amazon ECR
+#         id: login-ecr
+#         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: TF plan-stage
-        id: tf-plan-stage
-        working-directory: '06-best-practices/code-practice'
-        run: make plan_stage
+#       - name: TF plan-stage
+#         id: tf-plan-stage
+#         working-directory: '06-best-practices/code-practice'
+#         run: make plan_stage
 
-      - name: TF apply-stage
-        id: tf-apply-stage
-        working-directory: '06-best-practices/code-practice/deploy'
-        if: ${{ steps.tf-plan-stage.outcome }} == 'success'
-        env:
-          ENVIRONMENT: "stage"
-          TEST_RUN: "False"
-        run: | 
-          echo "Initialing terraform"
-          terraform init -backend-config="key=mlops-zoomcamp-${{ env.ENVIRONMENT }}.tfstate" --reconfigure
+#       - name: TF apply-stage
+#         id: tf-apply-stage
+#         working-directory: '06-best-practices/code-practice/deploy'
+#         if: ${{ steps.tf-plan-stage.outcome }} == 'success'
+#         env:
+#           ENVIRONMENT: "stage"
+#           TEST_RUN: "False"
+#         run: | 
+#           echo "Initialing terraform"
+#           terraform init -backend-config="key=mlops-zoomcamp-${{ env.ENVIRONMENT }}.tfstate" --reconfigure
 
-          echo "Running terraform apply" 
-          TF_VAR_run_id=${{ env.RUN_ID }} TF_VAR_test_run=${{ env.TEST_RUN }} terraform apply -auto-approve -var-file="vars/${{ env.ENVIRONMENT }}.tfvars"
+#           echo "Running terraform apply" 
+#           TF_VAR_run_id=${{ env.RUN_ID }} TF_VAR_test_run=${{ env.TEST_RUN }} terraform apply -auto-approve -var-file="vars/${{ env.ENVIRONMENT }}.tfvars"
 
-          echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
-          echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
-          echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
-          echo "::set-output name=kinesis_output_stream::$(terraform output kinesis_output_stream_name)"
-          echo "::set-output name=ecr_repo::$(terraform output ecr_repo)"
-          echo "::set-output name=run_id::$(terraform output run_id)"
+#           echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
+#           echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
+#           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
+#           echo "::set-output name=kinesis_output_stream::$(terraform output kinesis_output_stream_name)"
+#           echo "::set-output name=ecr_repo::$(terraform output ecr_repo)"
+#           echo "::set-output name=run_id::$(terraform output run_id)"
 
-          echo "Image name deployed is $(terraform output image_uri)"
+#           echo "Image name deployed is $(terraform output image_uri)"
 
-      - name: TF plan-prod
-        id: tf-plan-prod
-        working-directory: '06-best-practices/code-practice'
-        if: ${{ steps.tf-apply-stage.outcome }} == 'success'
-        run: make plan_prod
+#       - name: TF plan-prod
+#         id: tf-plan-prod
+#         working-directory: '06-best-practices/code-practice'
+#         if: ${{ steps.tf-apply-stage.outcome }} == 'success'
+#         run: make plan_prod
 
-      - name: TF apply-prod
-        id: tf-apply-prod
-        working-directory: '06-best-practices/code-practice/deploy'
-        if: ${{ steps.tf-plan-prod.outcome }} == 'success'
-        env:
-          ENVIRONMENT: "prod"
-          TEST_RUN: "False"
-        run: | 
-          echo "Initialing terraform"
-          terraform init -backend-config="key=mlops-zoomcamp-${{ env.ENVIRONMENT }}.tfstate" --reconfigure
+#       - name: TF apply-prod
+#         id: tf-apply-prod
+#         working-directory: '06-best-practices/code-practice/deploy'
+#         if: ${{ steps.tf-plan-prod.outcome }} == 'success'
+#         env:
+#           ENVIRONMENT: "prod"
+#           TEST_RUN: "False"
+#         run: | 
+#           echo "Initialing terraform"
+#           terraform init -backend-config="key=mlops-zoomcamp-${{ env.ENVIRONMENT }}.tfstate" --reconfigure
 
-          echo "Running terraform apply" 
-          TF_VAR_run_id=${{ env.RUN_ID }} TF_VAR_test_run=${{ env.TEST_RUN }} terraform apply -auto-approve -var-file="vars/${{ env.ENVIRONMENT }}.tfvars"
+#           echo "Running terraform apply" 
+#           TF_VAR_run_id=${{ env.RUN_ID }} TF_VAR_test_run=${{ env.TEST_RUN }} terraform apply -auto-approve -var-file="vars/${{ env.ENVIRONMENT }}.tfvars"
 
-          echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
-          echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
-          echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
-          echo "::set-output name=kinesis_output_stream::$(terraform output kinesis_output_stream_name)"
-          echo "Image  name deployed is $(terraform output image_uri)"
-          echo "::set-output name=ecr_repo::$(terraform output ecr_repo)"
-          echo "::set-output name=run_id::$(terraform output run_id)"
+#           echo "::set-output name=ride_prediction_lambda::$(terraform output ride_prediction_lambda)"
+#           echo "::set-output name=ride_prediction_bucket::$(terraform output ride_prediction_bucket)"
+#           echo "::set-output name=kinesis_source_stream::$(terraform output kinesis_source_stream_name)"
+#           echo "::set-output name=kinesis_output_stream::$(terraform output kinesis_output_stream_name)"
+#           echo "Image  name deployed is $(terraform output image_uri)"
+#           echo "::set-output name=ecr_repo::$(terraform output ecr_repo)"
+#           echo "::set-output name=run_id::$(terraform output run_id)"
       
-      - name: Build, tag and push image stage
-        working-directory: '06-best-practices/code-practice'
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: ${{ steps.tf-apply-stage.outputs.ecr_repo }}
-          IMAGE_TAG: "latest"
-          TEST_RUN: "False"
-        run: |
-          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG} .
-          docker push ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG}
+#       - name: Build, tag and push image stage
+#         working-directory: '06-best-practices/code-practice'
+#         env:
+#           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#           REPOSITORY: ${{ steps.tf-apply-stage.outputs.ecr_repo }}
+#           IMAGE_TAG: "latest"
+#           TEST_RUN: "False"
+#         run: |
+#           docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-stage.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-stage.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG} .
+#           docker push ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG}
 
-      - name: Build, tag and push image prod
-        working-directory: '06-best-practices/code-practice'
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: ${{ steps.tf-apply-prod.outputs.ecr_repo }}
-          IMAGE_TAG: "latest"
-          TEST_RUN: "False"
-        run: |
-          docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-prod.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-prod.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG} .
-          docker push ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG}
+#       - name: Build, tag and push image prod
+#         working-directory: '06-best-practices/code-practice'
+#         env:
+#           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+#           REPOSITORY: ${{ steps.tf-apply-prod.outputs.ecr_repo }}
+#           IMAGE_TAG: "latest"
+#           TEST_RUN: "False"
+#         run: |
+#           docker build --build-arg STREAM_NAME_ARG=${{ steps.tf-apply-prod.outputs.kinesis_output_stream }}  --build-arg RUN_ID_ARG=${{ steps.tf-apply-prod.outputs.run_id }} --build-arg TEST_RUN_ARG=${{ env.TEST_RUN }} --build-arg MODEL_BUCKET_ARG=${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }} -t ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG} .
+#           docker push ${REGISTRY}/${{ env.REPOSITORY }}:${IMAGE_TAG}
         
-      - name: Update bucket artifacts stage
-        env:
-          MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
-          MODEL_BUCKET: ${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }}
-        run: |
-          aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${{ env.MODEL_BUCKET }}
+#       - name: Update bucket artifacts stage
+#         env:
+#           MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
+#           MODEL_BUCKET: ${{ steps.tf-apply-stage.outputs.ride_prediction_bucket }}
+#         run: |
+#           aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${{ env.MODEL_BUCKET }}
 
-      - name: Update bucket artifacts prod
-        env:
-          MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
-          MODEL_BUCKET: ${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }}
-        run: |
-          aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${{ env.MODEL_BUCKET }}
+#       - name: Update bucket artifacts prod
+#         env:
+#           MODEL_BUCKET_DEV: "mlops-zoomcamp-nakul-dev"
+#           MODEL_BUCKET: ${{ steps.tf-apply-prod.outputs.ride_prediction_bucket }}
+#         run: |
+#           aws s3 sync s3://${{ env.MODEL_BUCKET_DEV }} s3://${{ env.MODEL_BUCKET }}

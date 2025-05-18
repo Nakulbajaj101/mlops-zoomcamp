@@ -1,51 +1,80 @@
 # 5. Model Monitoring
 
-## 5.1 Monitoring for ML-based services
+## 5.1 Intro to ML monitoring
 
-<a href="https://www.youtube.com/watch?v=gMiT11Bp05A&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-01.jpg">
-</a>
-
-
-[Slides](https://drive.google.com/file/d/1wcMU75ZcNNJie4ELjsKPkITIL93wHykt/view?usp=sharing)
-
-
-## 5.2 Setting up the environment
-
-<a href="https://www.youtube.com/watch?v=VkkpVXW53bo&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-02.jpg">
+<a href="https://www.youtube.com/watch?v=SQ0jBwd_3kk&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/SQ0jBwd_3kk">
 </a>
 
 
 
-## 5.3 Creating a prediction service and simulating traffic
+## 5.2 Environment setup
 
-<a href="https://www.youtube.com/watch?v=umQ3Mo5G1o8&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-03.jpg">
+<a href="https://www.youtube.com/watch?v=yixA3C1xSxc&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/yixA3C1xSxc">
 </a>
 
 
 
-## 5.4 Realtime monitoring walktrough (Prometheus, Evidently, Grafana)
+## 5.3 Prepare reference and model
 
-<a href="https://www.youtube.com/watch?v=r_m4VFEJ8yY&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-04.jpg">
+<a href="https://www.youtube.com/watch?v=IjNrkqMYQeQ&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/IjNrkqMYQeQ">
 </a>
 
 
 
-## 5.5 Batch monitoring walktrough (Prefect, MongoDB, Evidently)
+## 5.4 Evidently metrics calculation
 
-<a href="https://www.youtube.com/watch?v=KefdYuue_FE&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
-  <img src="images/thumbnail-5-05.jpg">
+<a href="https://www.youtube.com/watch?v=kP3lzh_HfWY&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/kP3lzh_HfWY">
+</a>
+
+
+## 5.5 Evidently Monitoring Dashboard
+
+<a href="https://www.youtube.com/watch?v=zjvYhDPzFlY&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/zjvYhDPzFlY">
+</a>
+
+
+## 5.6 Dummy monitoring
+
+<a href="https://www.youtube.com/watch?v=s3G4PMsOMOA&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/s3G4PMsOMOA">
 </a>
 
 
 
-## 5.6 Homework
+## 5.7 Data quality monitoring
 
-More information here: [homework.md](homework.md). Please also give us feedback for this week videos using 
-[this form](https://forms.gle/fb7dJKjyb1oeNeAz9) 
+<a href="https://www.youtube.com/watch?v=fytrmPbcLhI&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/fytrmPbcLhI">
+</a>
+
+> Note: in this video we use Prefect (07:33-11:21). Feel free to skip this part. Also note that Prefect
+is not officially supported in the 2024 edition of the course.
+
+
+## 5.8 Save Grafana Dashboard
+
+<a href="https://www.youtube.com/watch?v=-c4iumyZMyw&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/-c4iumyZMyw">
+</a>
+
+
+
+## 5.9 Debugging with test suites and reports
+
+<a href="https://www.youtube.com/watch?v=sNSk3ojISh8&list=PL3MmuxUbc_hIUISrluw_A7wDSmfOhErJK">
+  <img src="https://markdown-videos-api.jorgenkh.no/youtube/sNSk3ojISh8">
+</a>
+
+
+## Homework
+
+
+More information [here](../cohorts/2024/05-monitoring/homework.md)
 
 
 ## Notes
@@ -54,6 +83,8 @@ Did you take notes? Add them here:
 
 * [Week 5 notes by M. Ayoub C.](https://gist.github.com/Qfl3x/aa6b1bec35fb645ded0371c46e8aafd1)
 * [week 5: Monitoring notes Ayoub.B](https://github.com/ayoub-berdeddouch/mlops-journey/blob/main/monitoring-05.md)
+* [Week 5: 2023](https://github.com/dimzachar/mlops-zoomcamp/tree/master/notes/Week_5)
+* [Week5: Why we need to monitor models after deployment? by Hongfan (Amber)](https://github.com/Muhongfan/MLops/blob/main/05-monitoring/README.md)
 * Send a PR, add your notes above this line
 
 
@@ -70,9 +101,9 @@ You need following tools installed:
 
 Note: all actions expected to be executed in repo folder.
 
-- Create virtual environment and activate it (eg. `python -m venv venv && source ./venv/bin/activate`)
+- Create virtual environment and activate it (eg. `python -m venv venv && source ./venv/bin/activate` or `conda create -n venv python=3.11 && conda activate venv`)
 - Install required packages `pip install -r requirements.txt`
-- Run `python prepare.py` for downloading datasets
+- Run `baseline_model_nyc_taxi_data.ipynb` for downloading datasets, training model and creating reference dataset 
 
 ## Monitoring Example
 
@@ -84,35 +115,36 @@ docker-compose up
 ```
 
 It will start following services:
-- `prometheus` - TSDB for metrics
-- `grafana` - Visual tool for metrics
-- `mongo` - MongoDB, for storing raw data, predictions, targets and profile reports
-- `evidently_service` - Evindently RT-monitoring service (draft example)
-- `prediction_service` - main service, which makes predictions
+- `db` - PostgreSQL, for storing metrics data
+- `adminer` - database management tool
+- `grafana` - Visual dashboarding tool 
+
 
 ### Sending data
 
-To start sending data to service, execute:
+To calculate evidently metrics with prefect and send them to database, execute:
 ```bash
-python send_data.py
+python evidently_metrics_calculation.py
 ```
 
-This script will send every second single row from dataset to prediction service along with creating file `target.csv` with actual results (so it can be loaded after)
+This script will simulate batch monitoring. Every 10 seconds it will collect data for a daily batch, calculate metrics and insert them into database. This metrics will be available in Grafana in preconfigured dashboard. 
 
-## Batch Monitoring Example
+### Accsess dashboard
 
-After you stop sending data to service, you can run batch monitoring pipeline (using Prefect) by running script:
+- In your browser go to a `localhost:3000`
+The default username and password are `admin`
 
+- Then navigate to `General/Home` menu and click on `Home`.
+
+- In the folder `General` you will see `New Dashboard`. Click on it to access preconfigured dashboard.
+
+### Ad-hoc debugging
+
+Run `debugging_nyc_taxi_data.ipynb` to see how you can perform a debugging with help of Evidently `TestSuites` and `Reports`
+
+### Stopping services
+
+To stop all services, execute:
 ```bash
-python prefect_example.py
+docker-compose down
 ```
-
-This script will:
-- load `target.csv` to MongoDB
-- download dataset from MongoDB
-- Run Evidently Model Profile and Evidently Report on this data
-- Save Profile data back to MongoDB
-- Save Report to `evidently_report_example.html`
-
-You can look at Prefect steps in Prefect Orion UI
-(to start it execute `prefect orion start`)
